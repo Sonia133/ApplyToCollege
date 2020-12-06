@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "todo";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<br />
+<br />
+<br />
+<div class="panel-body">
+
+</div>
+@using (Html.BeginForm(actionName: "Faculties", controllerName: "College", method: FormMethod.Get))
+{
+    <button class="btn btn-primary">Faculties</button>
+}

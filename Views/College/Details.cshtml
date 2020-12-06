@@ -1,0 +1,24 @@
+﻿@model College.Models.Faculty
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="panel-body">
+    @Html.Label("Places", "Available places")
+    <br />
+    <p>@Model.Places</p>
+    <br />
+    @Html.Label("Dean", "Dean")
+    <br />
+    <p>@Model.Dean.Name</p>
+</div>
+<div class="panel-body">
+    @using (Html.BeginForm(actionName: "Candidates", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.FacultyId }))
+    {
+        <button class="btn btn-primary">Candidates</button>
+    }
+    <br />
+</div>
+

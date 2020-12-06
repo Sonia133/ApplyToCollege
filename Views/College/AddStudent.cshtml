@@ -1,0 +1,47 @@
+﻿@model College.Models.Student
+@{
+    ViewBag.Title = "Add details";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm(actionName: "Apply", controllerName: "College", method: FormMethod.Post))
+{
+    @Html.Label("Faculty.FacultyId", "Select one faculty: ")
+    <br />
+    @Html.DropDownListFor(b => b.Faculty.FacultyId,
+        new SelectList(Model.FacultiesList, "Value", "Text"), new { placeholder = "Faculty", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Faculty.FacultyId, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Name", "Name: ")
+    <br />
+    @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Name", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Name, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Cnp", "CNP: ")
+    <br />
+    @Html.TextBoxFor(b => b.Cnp, null, new { placeholder = "Cnp", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Cnp, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Frequency", "Frequency: ")
+    <br />
+    <div class="col-md-10">
+        IF
+        @Html.RadioButtonFor(b => b.Frequency, "IF")
+        ID
+        @Html.RadioButtonFor(b => b.Frequency, "ID")
+    </div>
+    @Html.ValidationMessageFor(b => b.Frequency, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Sat", "SAT grade: ")
+    <br />
+    @Html.TextBoxFor(b => b.Sat, null, new { placeholder = "SAT grade", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Sat, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Badge", "Badge number: ")
+    <br />
+    @Html.TextBoxFor(b => b.Badge, null, new { placeholder = "Badge number", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Badge, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-success" type="submit">Add</button>
+}

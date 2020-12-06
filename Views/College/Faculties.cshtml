@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Faculties";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@foreach (var faculty in ViewBag.Faculties)
+{
+    <div class="panel-body">
+        @Html.Label("Name", "Name")
+        <br />
+        <p>@faculty.Name</p>
+        <br />
+        @Html.Label("City", "City")
+        <br />
+        <p>@faculty.City</p>
+        <br />
+        @using (Html.BeginForm(actionName: "Details", controllerName: "College", method: FormMethod.Get, routeValues: new { id = faculty.FacultyId }))
+        {
+            <button class="btn btn-primary">Details</button>
+        }
+        <br />
+    </div>
+}
+<div class="panel-body">
+    <br />
+    @if (ViewBag.User == true)
+    {
+        @Html.ActionLink("Apply", "AddStudent")
+    }
+    @if (ViewBag.Admin == true)
+    {
+        @Html.ActionLink("Add faculty", "AddFaculty")
+    }
+</div>

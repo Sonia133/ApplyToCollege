@@ -1,0 +1,32 @@
+﻿@model College.Models.Faculty
+@{
+    ViewBag.Title = "Add details";
+}
+
+<h2>@ViewBag.Title</h2>
+<h4>Pasul 1</h4>
+@using (Html.BeginForm(actionName: "AddStep_1", controllerName: "College", method: FormMethod.Post))
+{
+    @Html.Label("Name", "Name: ")
+    <br />
+    @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Enter the name of the faculty", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Name, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("City", "City: ")
+    <br />
+    @Html.TextBoxFor(b => b.City, null, new { placeholder = "Enter the city of the faculty", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.City, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Description", "Description: ")
+    <br />
+    @Html.TextArea("Description", null, new { placeholder = "Describe the faculty", @class = "formcontrol", @rows = "10" })
+    @Html.ValidationMessageFor(b => b.Description, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Places", "Places: ")
+    <br />
+    @Html.TextBoxFor(b => b.Places, null, new { placeholder = "Enter the number of the places", @class = "formcontrol", @type = "number" })
+    @Html.ValidationMessageFor(b => b.Places, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-primary" type="submit">Next</button>
+}
