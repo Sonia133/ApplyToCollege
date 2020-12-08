@@ -3,7 +3,7 @@
     ViewBag.Title = "Candidates";
 }
 
-<h2>Candidates</h2>
+<h2>@ViewBag.Title</h2>
 
 @foreach (var student in ViewBag.Students)
 {
@@ -12,10 +12,6 @@
         <br />
         <p>@student.Name</p>
         <br />
-        @Html.Label("Badge", "Badge number")
-        <br />
-        <p>@student.Badge</p>
-        <br />
         @Html.Label("Frequency", "Frequency")
         <br />
         <p>@student.Frequency</p>
@@ -23,5 +19,16 @@
         @Html.Label("Sat", "SAT grade")
         <br />
         <p>@student.Sat</p>
+        @if (User.IsInRole("Admin"))
+        {
+            <br />
+            @Html.Label("Email", "Email")
+            <br />
+            <p>@student.Email</p>
+            <br />
+            @Html.Label("Badge", "Badge number")
+            <br />
+            <p>@student.Badge</p>
+        }
     </div>
 }

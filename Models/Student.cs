@@ -16,6 +16,7 @@ namespace College.Models
         public string Name { get; set; }
         public double Cnp { get; set; }
         public string Frequency { get; set; }
+        public string Email { get; set; }
         public double Sat { get; set; }
         public int Badge { get; set; }
 

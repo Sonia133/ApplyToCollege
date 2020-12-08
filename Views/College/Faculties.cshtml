@@ -12,10 +12,6 @@
         <br />
         <p>@faculty.Name</p>
         <br />
-        @Html.Label("City", "City")
-        <br />
-        <p>@faculty.City</p>
-        <br />
         @using (Html.BeginForm(actionName: "Details", controllerName: "College", method: FormMethod.Get, routeValues: new { id = faculty.FacultyId }))
         {
             <button class="btn btn-primary">Details</button>
@@ -25,11 +21,19 @@
 }
 <div class="panel-body">
     <br />
-    @if (ViewBag.User == true)
+    @if (ViewBag.Role == "User" && ViewBag.AllowApply == true)
     {
         @Html.ActionLink("Apply", "AddStudent")
     }
-    @if (ViewBag.Admin == true)
+    else if (ViewBag.Role == "User" && ViewBag.AllowApply == false)
+    {
+        using (Html.BeginForm(actionName: "EditStudent", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.StudentId }))
+        {
+            <button class="btn btn-primary">Edit your profile</button>
+        }
+        <br />
+    }
+    else if (ViewBag.Role == "Admin")
     {
         @Html.ActionLink("Add faculty", "AddFaculty")
     }

@@ -1,0 +1,22 @@
+﻿@model College.Models.Exam
+@{
+    ViewBag.Title = "Exam Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@Model.Subject</h3>
+
+<div class="panel-body">
+
+    @Html.Label("Date", "Date")
+    <br />
+    <p>@Model.Date</p>
+    <br />
+
+    @Html.Label("Type", "Type")
+    <br />
+    <p>@Model.Type</p>
+    <br />
+
+</div>

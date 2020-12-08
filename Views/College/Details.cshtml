@@ -5,20 +5,37 @@
 
 <h2>@ViewBag.Title</h2>
 
+<h3>@Model.Name</h3>
+
 <div class="panel-body">
+    @Html.Label("City", "City")
+    <br />
+    <p>@Model.City</p>
+    <br />
     @Html.Label("Places", "Available places")
     <br />
     <p>@Model.Places</p>
     <br />
-    @Html.Label("Dean", "Dean")
+    @Html.Label("Description", "Description")
     <br />
-    <p>@Model.Dean.Name</p>
-</div>
-<div class="panel-body">
-    @using (Html.BeginForm(actionName: "Candidates", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.FacultyId }))
-    {
-        <button class="btn btn-primary">Candidates</button>
-    }
+    <p>@Model.Description</p>
     <br />
+
+    @Html.ActionLink("Dean", "Dean", new { id = Model.Dean.DeanId })
+    @Html.ActionLink("Candidates", "Candidates", new { id = Model.FacultyId })
+    @Html.ActionLink("Exams", "Exams", new { id = Model.FacultyId })
+
+
+    <div class="panel-body">
+        @if (User.IsInRole("Admin"))
+        {
+            using (Html.BeginForm(actionName: "EditFaculty", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.FacultyId }))
+            {
+                <button class="btn btn-primary">Edit details</button>
+            }
+            <br />
+            @Html.ActionLink("Back to the list of faculties", "Faculties")
+        }
+    </div>
 </div>
 

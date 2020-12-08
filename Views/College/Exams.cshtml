@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Exams";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@foreach (var exam in ViewBag.Exams)
+{
+    <div class="panel-body">
+        @Html.Label("Subject", "Subject")
+        <br />
+        <p>@exam.Subject</p>
+        <br />
+    </div>
+
+    using (Html.BeginForm(actionName: "ExamDetails", controllerName: "College", method: FormMethod.Get, routeValues: new { id = exam.ExamId }))
+    {
+        <button class="btn btn-primary">Details</button>
+    }
+    <br />
+}
+
+@if (User.IsInRole("Admin"))
+{
+    @Html.ActionLink("Add exam", "AddExam", new { id = ViewBag.Faculty.FacultyId })
+}
+
+

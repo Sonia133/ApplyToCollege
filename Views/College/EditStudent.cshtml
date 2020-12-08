@@ -1,0 +1,64 @@
+﻿@model College.Models.Student
+@{
+    ViewBag.Title = "Edit your profile";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "EditStudent", controllerName: "College", method: FormMethod.Post))
+{
+<div class="form-horizontal">
+
+    @Html.HiddenFor(x => x.StudentId)
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Name, new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Cnp, new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.Cnp, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Cnp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Frequency, new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                IF
+                @Html.RadioButtonFor(b => b.Frequency, "IF")
+                ID
+                @Html.RadioButtonFor(b => b.Frequency, "ID")
+            </div>
+            @Html.ValidationMessageFor(b => b.Frequency, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Badge, new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.Badge, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Badge, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Sat, new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.Sat, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Sat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+}

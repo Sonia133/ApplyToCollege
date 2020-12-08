@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Dean";
+}
+
+<h2>Dean</h2>
+
+<div class="panel-body">
+    @Html.Label("Name", "Name")
+    <br />
+    <p>@ViewBag.Dean.Name</p>
+    <br />
+    @Html.Label("Email", "Email")
+    <br />
+    <p>@ViewBag.Dean.Email</p>
+    <br />
+
+    @if (User.IsInRole("Admin"))
+    {
+        using (Html.BeginForm(actionName: "EditDean", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.Dean.DeanId }))
+        {
+            <button class="btn btn-primary">Edit dean</button>
+        }
+        <br />
+    }
+</div>
