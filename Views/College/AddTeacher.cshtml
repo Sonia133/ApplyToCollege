@@ -1,0 +1,29 @@
+﻿@model College.Models.Teacher
+@{
+    ViewBag.Title = "Add Teacher";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("AddTeacher", "College", new { id = Model.Faculty.FacultyId }, FormMethod.Post))
+{
+    @Html.Label("Name", "Name: ")
+    <br />
+    @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Name", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Name, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Subject", "Subject: ")
+    <br />
+    @Html.TextBoxFor(b => b.Subject, null, new { placeholder = "Subject", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Subject, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Email", "Email: ")
+    <br />
+    @Html.TextBoxFor(b => b.Email, null, new { placeholder = "Email", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Email, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-success" type="submit">Add</button>
+}   

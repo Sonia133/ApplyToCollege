@@ -23,6 +23,15 @@
             }
             ]
         </dd>
-        
     </dl>
+    @using (Html.BeginForm(actionName: "EditStudent", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.StudentId }))
+    {
+        <button class="btn btn-primary">Edit your profile</button>
+    }
+    <br />
+    @using (Html.BeginForm(actionName: "SeeStudent", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.StudentId }))
+    {
+        <button class="btn btn-primary">See your profile</button>
+    }
+    <br />
 </div>

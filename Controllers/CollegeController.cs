@@ -58,18 +58,19 @@ namespace College.Controllers
         {
             List<Faculty> faculties = db.Faculties.ToList();
 
-            var userId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == userId);
-
-            Student student = db.Students.FirstOrDefault(x => x.Email == currentUser.UserName);
-            if (student != null)
+            if(User.Identity.IsAuthenticated)
             {
-                ViewBag.StudentId = student.StudentId;
+                var userId = User.Identity.GetUserId();
+                ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == userId);
+
+                Student student = db.Students.FirstOrDefault(x => x.Email == currentUser.UserName);
+                if (student != null)
+                {
+                    ViewBag.StudentId = student.StudentId;
+                }
             }
 
             ViewBag.Faculties = faculties;
-            ViewBag.Role = User.IsInRole("User") == true ? "User" : "Admin";
-            ViewBag.AllowApply = User.IsInRole("User") == true && AlreadyApplied(currentUser) == false ? true : false;
             return View();
         }
 
@@ -182,7 +183,6 @@ namespace College.Controllers
                     var errors = ModelState.Select(x => x.Value.Errors)
                                .Where(y => y.Count > 0)
                                .ToList();
-                    Console.WriteLine(errors);
                 }
             }
             catch (Exception e)
@@ -208,7 +208,23 @@ namespace College.Controllers
             return HttpNotFound("Please introduce an id for the faculty!");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        public ActionResult SeeStudent(int? id)
+        {
+            if (id.HasValue)
+            {
+                Student student = db.Students.Find(id);
+                if (student != null)
+                {
+                    return View(student);
+                }
+                return HttpNotFound("I couldn't find your profile!");
+            }
+            return HttpNotFound("Please introduce an id for your profile!");
+        }
+
+        [Authorize(Roles = "User")]
         [HttpGet]
         public ActionResult EditStudent(int? id)
         {
@@ -250,7 +266,7 @@ namespace College.Controllers
 
                     db.SaveChanges();
 
-                    return RedirectToAction("Candidates", new { id = oldStudent.Faculty.FacultyId });
+                    return RedirectToAction("Index", "Manage");
                 }
                 else
                 {
@@ -271,8 +287,12 @@ namespace College.Controllers
         [HttpGet]
         public ActionResult Candidates(int? id)
         {
-            List<Student> students = db.Faculties.Find(id).Students.ToList();
+            Faculty faculty = db.Faculties.Find(id);
+            ViewBag.Faculty = faculty;
+
+            List<Student> students = faculty.Students.ToList();
             ViewBag.Students = students;
+
             return View();
         }
 
@@ -303,6 +323,61 @@ namespace College.Controllers
                 return HttpNotFound("We couldn't find an exam with this id!");
             }
             return HttpNotFound("Please introduce an id for the exam!");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult EditExam(int? id)
+        {
+            if (id.HasValue)
+            {
+                Exam exam = db.Exams.Find(id);
+                if (exam != null)
+                {
+                    return View(exam);
+                }
+                return HttpNotFound("We couldn't find an exam with this id!");
+            }
+            return HttpNotFound("Please introduce an id for the exam!");
+        }
+
+        [HttpPost]
+        public ActionResult EditExam(Exam exam)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var oldExam = db.Exams.Find(exam.ExamId);
+
+                    if (oldExam == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    oldExam.Subject = exam.Subject;
+                    oldExam.Date = exam.Date;
+                    oldExam.Type = exam.Type;
+
+                    TryUpdateModel(oldExam);
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("ExamDetails", new { id = oldExam.ExamId });
+                }
+                else
+                {
+                    var errors = ModelState.Select(x => x.Value.Errors)
+                               .Where(y => y.Count > 0)
+                               .ToList();
+                    Console.WriteLine(errors);
+                }
+            }
+            catch (Exception e)
+            {
+                return HttpNotFound();
+            }
+            return View(exam);
         }
 
         [Authorize(Roles = "Admin")]
@@ -340,13 +415,140 @@ namespace College.Controllers
                     var errors = ModelState.Select(x => x.Value.Errors)
                                .Where(y => y.Count > 0)
                                .ToList();
-                    Console.WriteLine(errors);
                 }
                 return View(exam);
             }
             catch (Exception e)
             {
                 return View(exam);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Teachers(int? id)
+        {
+            Faculty faculty = db.Faculties.Find(id);
+            ViewBag.Faculty = faculty;
+
+            List<Teacher> teachers = faculty.Teachers.ToList();
+            ViewBag.Teachers = teachers;
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult TeacherDetails(int? id)
+        {
+            if (id.HasValue)
+            {
+                Teacher teacher = db.Teachers.Find(id);
+                if (teacher != null)
+                {
+                    return View(teacher);
+                }
+                return HttpNotFound("We couldn't find a teacher with this id!");
+            }
+            return HttpNotFound("Please introduce an id for the teacher!");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult EditTeacher(int? id)
+        {
+            if (id.HasValue)
+            {
+                Teacher teacher = db.Teachers.Find(id);
+                if (teacher != null)
+                {
+                    return View(teacher);
+                }
+                return HttpNotFound("We couldn't find a teacher with this id!");
+            }
+            return HttpNotFound("Please introduce an id for the teacher!");
+        }
+
+        [HttpPost]
+        public ActionResult EditTeacher(Teacher teacher)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var oldTeacher = db.Teachers.Find(teacher.TeacherId);
+
+                    if (oldTeacher == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    oldTeacher.Name = teacher.Name;
+                    oldTeacher.Subject = teacher.Subject;
+                    oldTeacher.Email = teacher.Email;
+
+                    TryUpdateModel(oldTeacher);
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("TeacherDetails", new { id = oldTeacher.TeacherId });
+                }
+                else
+                {
+                    var errors = ModelState.Select(x => x.Value.Errors)
+                               .Where(y => y.Count > 0)
+                               .ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                return HttpNotFound();
+            }
+            return View(teacher);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult AddTeacher(int id)
+        {
+            Teacher teacher = new Teacher
+            {
+                Faculty = db.Faculties.Find(id)
+            };
+            return View(teacher);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult AddTeacher(int id, Teacher teacher)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Faculty faculty = db.Faculties.Find(id);
+
+                    faculty.Teachers.Add(new Teacher
+                    {
+                        Name = teacher.Name,
+                        Subject = teacher.Subject,
+                        Email = teacher.Email
+                    });
+                    db.SaveChanges();
+
+                    return RedirectToAction("Teachers", "College", new { id = faculty.FacultyId });
+                }
+                else
+                {
+                    var errors = ModelState.Select(x => x.Value.Errors)
+                               .Where(y => y.Count > 0)
+                               .ToList();
+                }
+                return View(teacher);
+            }
+            catch (Exception e)
+            {
+                return View(teacher);
             }
         }
 
@@ -399,7 +601,7 @@ namespace College.Controllers
             }
         }
 
-        [Authorize(Roles="User")]
+        [Authorize(Roles = "User")]
         [HttpGet]
         public ActionResult AddStudent()
         {

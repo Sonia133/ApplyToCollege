@@ -171,7 +171,7 @@ namespace College.Controllers
                         roleManager.Create(new IdentityRole("User"));
                     UserManager.AddToRole(user.Id, "User");
 
-                    return RedirectToAction("Index", "College");
+                    return RedirectToAction("AddStudent", "College");
                 }
                 AddErrors(result);
             }

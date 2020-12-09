@@ -1,0 +1,34 @@
+﻿@model College.Models.Teacher
+@{
+    ViewBag.Title = "Teacher Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@Model.Name</h3>
+
+<div class="panel-body">
+
+    @Html.Label("Subject", "Subject")
+    <br />
+    <p>@Model.Subject</p>
+    <br />
+
+    @Html.Label("Email", "Email")
+    <br />
+    <p>@Model.Email</p>
+    <br />
+
+    <div class="panel-body">
+        @if (User.IsInRole("Admin"))
+        {
+            using (Html.BeginForm(actionName: "EditTeacher", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.TeacherId }))
+            {
+                <button class="btn btn-primary">Edit details</button>
+            }
+            <br />
+        }
+        @Html.ActionLink("Back to the list of teachers", "Teachers", new { id = Model.Faculty.FacultyId })
+    </div>
+</div>
+

@@ -19,4 +19,16 @@
     <p>@Model.Type</p>
     <br />
 
+    <div class="panel-body">
+        @if (User.IsInRole("Admin"))
+        {
+            using (Html.BeginForm(actionName: "EditExam", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.ExamId }))
+            {
+                <button class="btn btn-primary">Edit details</button>
+            }
+            <br />
+        }
+        @Html.ActionLink("Back to the list of exams", "Exams", new { id = Model.Faculty.FacultyId })
+    </div>
 </div>
+

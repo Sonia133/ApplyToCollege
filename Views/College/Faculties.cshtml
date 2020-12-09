@@ -21,19 +21,11 @@
 }
 <div class="panel-body">
     <br />
-    @if (ViewBag.Role == "User" && ViewBag.AllowApply == true)
+    @if (!User.Identity.IsAuthenticated)
     {
-        @Html.ActionLink("Apply", "AddStudent")
+        @Html.ActionLink("Want to apply? Sign up first!", "Register", "Account")
     }
-    else if (ViewBag.Role == "User" && ViewBag.AllowApply == false)
-    {
-        using (Html.BeginForm(actionName: "EditStudent", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.StudentId }))
-        {
-            <button class="btn btn-primary">Edit your profile</button>
-        }
-        <br />
-    }
-    else if (ViewBag.Role == "Admin")
+    else if (User.IsInRole("Admin"))
     {
         @Html.ActionLink("Add faculty", "AddFaculty")
     }

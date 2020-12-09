@@ -1,0 +1,35 @@
+﻿@model College.Models.Exam
+@{
+    ViewBag.Title = "EditExam";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm(actionName: "EditExam", controllerName: "College", method: FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.ExamId)
+
+    @Html.Label("Subject", "Subject: ")
+    <br />
+    @Html.TextBoxFor(b => b.Subject, null, new { placeholder = "Subject", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Subject, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Date", "Date: ")
+    <br />
+    @Html.TextBoxFor(b => b.Date, null, new { placeholder = "Date", @class = "formcontrol", type = "date" })
+    @Html.ValidationMessageFor(b => b.Date, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Type", "Type: ")
+    <br />
+    <div class="col-md-10">
+        Multiple Choice
+        @Html.RadioButtonFor(b => b.Type, "Multiple Choice")
+        Complete Answer
+        @Html.RadioButtonFor(b => b.Type, "Complete Answer")
+    </div>
+    @Html.ValidationMessageFor(b => b.Type, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-success" type="submit">Edit</button>
+}   

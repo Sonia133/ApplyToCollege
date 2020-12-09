@@ -24,6 +24,7 @@
     @Html.ActionLink("Dean", "Dean", new { id = Model.Dean.DeanId })
     @Html.ActionLink("Candidates", "Candidates", new { id = Model.FacultyId })
     @Html.ActionLink("Exams", "Exams", new { id = Model.FacultyId })
+    @Html.ActionLink("Teachers", "Teachers", new { id = Model.FacultyId })
 
 
     <div class="panel-body">
@@ -34,8 +35,9 @@
                 <button class="btn btn-primary">Edit details</button>
             }
             <br />
-            @Html.ActionLink("Back to the list of faculties", "Faculties")
         }
     </div>
 </div>
+
+@Html.ActionLink("Back to the list of faculties", "Faculties")
 
