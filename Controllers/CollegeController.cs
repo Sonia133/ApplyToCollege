@@ -68,6 +68,11 @@ namespace College.Controllers
                 {
                     ViewBag.StudentId = student.StudentId;
                 }
+
+                if(User.IsInRole("User"))
+                {
+                    ViewBag.Apply = db.Students.FirstOrDefault(x => x.Email.Equals(currentUser.UserName)) == null;
+                }
             }
 
             ViewBag.Faculties = faculties;
@@ -128,6 +133,27 @@ namespace College.Controllers
                 return HttpNotFound();
             }
             return View(faculty);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult DeleteFaculty(int id)
+        {
+            Faculty faculty = db.Faculties.Find(id);
+            Dean dean = faculty.Dean;
+
+            if (faculty != null)
+            {
+                faculty.Dean = null;
+                dean.Faculty = null;
+
+                db.Faculties.Remove(faculty);
+                db.Deans.Remove(dean);
+
+                db.SaveChanges();
+                return RedirectToAction("Faculties", "College");
+            }
+            return HttpNotFound("I couldn't find a faculty with this id!");
         }
 
         [AllowAnonymous]
@@ -283,6 +309,20 @@ namespace College.Controllers
             return View(student);
         }
 
+        [HttpGet]
+        public ActionResult DeleteStudent(int id)
+        {
+            Student student = db.Students.Find(id);
+
+            if (student != null)
+            {
+                db.Students.Remove(student);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Manage");
+            }
+            return HttpNotFound("I couldn't find a student with this id!");
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Candidates(int? id)
@@ -424,6 +464,33 @@ namespace College.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult DeleteExam(int id)
+        {
+            Exam exam = db.Exams.Find(id);
+
+            List<Faculty> faculties = db.Faculties.Include("Exam").ToList();
+            int idFaculty = -1;
+
+            faculties.ForEach((faculty) =>
+            {
+                List<Exam> exams = faculty.Exam.ToList();
+                if (exams.FirstOrDefault(x => x.ExamId.Equals(id)) != null)
+                {
+                    idFaculty = faculty.FacultyId;
+                }
+            });
+            
+            if (exam != null)
+            {
+                db.Exams.Remove(exam);
+                db.SaveChanges();
+                return RedirectToAction("Exams", "College", new { id = idFaculty });
+            }
+            return HttpNotFound("I couldn't find an exam with this id!");
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Teachers(int? id)
@@ -554,6 +621,33 @@ namespace College.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
+        public ActionResult DeleteTeacher(int id)
+        {
+            Teacher teacher = db.Teachers.Find(id);
+
+            List<Faculty> faculties = db.Faculties.Include("Teachers").ToList();
+            int idFaculty = -1;
+
+            faculties.ForEach((faculty) =>
+            {
+                List<Teacher> teachers = faculty.Teachers.ToList();
+                if (teachers.FirstOrDefault(x => x.TeacherId.Equals(id)) != null)
+                {
+                    idFaculty = faculty.FacultyId;
+                }
+            });
+
+            if (teacher != null)
+            {
+                db.Teachers.Remove(teacher);
+                db.SaveChanges();
+                return RedirectToAction("Teachers", "College", new { id = idFaculty });
+            }
+            return HttpNotFound("I couldn't find an exam with this id!");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult AddDean()
         {
             Dean dean = new Dean { };
@@ -643,5 +737,6 @@ namespace College.Controllers
                 return View(student);
             }
         }
+
     }
 }

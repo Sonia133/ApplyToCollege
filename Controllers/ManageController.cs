@@ -59,6 +59,8 @@ namespace College.Controllers
             var userId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == userId);
 
+            ViewBag.hasProfile = db.Students.FirstOrDefault(x => x.Email.Equals(currentUser.UserName)) != null;
+
             Student student = db.Students.FirstOrDefault(x => x.Email == currentUser.UserName);
             if (student != null)
             {

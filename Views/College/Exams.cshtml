@@ -19,6 +19,14 @@
         <button class="btn btn-primary">Details</button>
     }
     <br />
+    if (User.IsInRole("Admin"))
+    {
+        using (Html.BeginForm(actionName: "DeleteExam", controllerName: "College", method: FormMethod.Get, routeValues: new { id = exam.ExamId }))
+        {
+            <button class="btn btn-primary">Delete</button>
+        }
+        <br />
+    }
 }
 
 @if (User.IsInRole("Admin"))

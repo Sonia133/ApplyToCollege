@@ -35,6 +35,18 @@
                 <button class="btn btn-primary">Edit details</button>
             }
             <br />
+            if (Model.Students.Count == 0)
+            {
+                using (Html.BeginForm(actionName: "DeleteFaculty", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.FacultyId }))
+                {
+                    <button class="btn btn-primary">Delete</button>
+                }
+                <br />
+            }
+            else
+            {
+                <p>You can't delete this faculty! There are students who applied here.</p>
+            }
         }
     </div>
 </div>
