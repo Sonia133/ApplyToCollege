@@ -16,7 +16,7 @@ namespace College.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Faculties", "College");
         }
 
         [Authorize(Roles = "Admin")]
@@ -71,7 +71,7 @@ namespace College.Controllers
 
                 if(User.IsInRole("User"))
                 {
-                    ViewBag.Apply = db.Students.FirstOrDefault(x => x.Email.Equals(currentUser.UserName)) == null;
+                    ViewBag.Apply = db.Students.FirstOrDefault(x => x.Email.Equals(currentUser.UserName));
                 }
             }
 
@@ -699,6 +699,10 @@ namespace College.Controllers
         [HttpGet]
         public ActionResult AddStudent()
         {
+            if(User.IsInRole("User"))
+            {
+                Console.WriteLine('h');
+            }
             Student student = new Student { };
             student.FacultiesList = GetAllFaculties();
             return View(student);

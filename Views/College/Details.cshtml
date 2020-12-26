@@ -20,35 +20,66 @@
     <br />
     <p>@Model.Description</p>
     <br />
+    <br />
 
-    @Html.ActionLink("Dean", "Dean", new { id = Model.Dean.DeanId })
-    @Html.ActionLink("Candidates", "Candidates", new { id = Model.FacultyId })
-    @Html.ActionLink("Exams", "Exams", new { id = Model.FacultyId })
-    @Html.ActionLink("Teachers", "Teachers", new { id = Model.FacultyId })
-
-
-    <div class="panel-body">
-        @if (User.IsInRole("Admin"))
-        {
-            using (Html.BeginForm(actionName: "EditFaculty", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.FacultyId }))
+    @if (User.IsInRole("Admin"))
+    {
+        <div style="display: flex; column-gap: 5px">
+            @using (Html.BeginForm(actionName: "EditFaculty", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.FacultyId }))
             {
-                <button class="btn btn-primary">Edit details</button>
+                <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <span style="margin-top: 1px" class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </button>
             }
             <br />
-            if (Model.Students.Count == 0)
+            @if (Model.Students.Count == 0)
             {
                 using (Html.BeginForm(actionName: "DeleteFaculty", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.FacultyId }))
                 {
-                    <button class="btn btn-primary">Delete</button>
+                    <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Delete">
+                        <span style="margin-top: 1px" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
                 }
                 <br />
             }
             else
             {
-                <p>You can't delete this faculty! There are students who applied here.</p>
+                <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="top" title="You can't delete this faculty! There are students who applied here.">
+                    <span style="margin-top: 1px" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
             }
-        }
-    </div>
+        </div>
+    }
+    <br />
+    <br />
+
+    <table class="table table-hover table-responsive table-bordered" style="width: 30%">
+        <thead class="row">
+            <tr>
+                <th scope="col" class="col-md-3">#</th>
+                <th scope="col" class="col-md-3">More details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>@Html.ActionLink("Dean", "Dean", new { id = Model.Dean.DeanId })</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>@Html.ActionLink("Candidates", "Candidates", new { id = Model.FacultyId })</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>@Html.ActionLink("Exams", "Exams", new { id = Model.FacultyId })</td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>@Html.ActionLink("Teachers", "Teachers", new { id = Model.FacultyId })</td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
 </div>
 
 @Html.ActionLink("Back to the list of faculties", "Faculties")

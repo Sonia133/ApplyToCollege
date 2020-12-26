@@ -3,16 +3,14 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Change your account settings</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>
-            [
             @if (Model.HasPassword)
             {
                 @Html.ActionLink("Change your password", "ChangePassword")
@@ -21,25 +19,18 @@
             {
                 @Html.ActionLink("Create", "SetPassword")
             }
-            ]
         </dd>
-    </dl>
-    @if (User.IsInRole("User") && ViewBag.hasProfile)
-    {
-        using (Html.BeginForm(actionName: "SeeStudent", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.StudentId }))
-        {
-            <button class="btn btn-primary">See your profile</button>
-        }
-        <br />
-        using (Html.BeginForm(actionName: "EditStudent", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.StudentId }))
-        {
-            <button class="btn btn-primary">Edit your profile</button>
-        }
-        <br />
-        using (Html.BeginForm(actionName: "DeleteStudent", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.StudentId }))
-        {
-            <button class="btn btn-primary">Delete your profile</button>
-        }
-        <br />
-    }
+        <dd>
+            @if (User.IsInRole("User") && ViewBag.hasProfile)
+            {
+                <dt>Profile:</dt>
+                <dd>
+                    @Html.ActionLink("See your profile", "SeeStudent", "College", new { id = ViewBag.StudentId }, FormMethod.Get)
+                    <br />
+                    @Html.ActionLink("Edit your application", "EditStudent", "College", new { id = ViewBag.StudentId }, FormMethod.Get)
+                    <br />
+                    @Html.ActionLink("Delete your application", "DeleteStudent", "College", new { id = ViewBag.StudentId }, FormMethod.Get)
+                </dd>
+            }
+        </dl>
 </div>

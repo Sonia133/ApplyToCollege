@@ -15,8 +15,6 @@ namespace College.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Apply to faculty!";
-
             return View();
         }
 
