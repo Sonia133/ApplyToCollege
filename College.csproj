@@ -266,6 +266,7 @@
     <Content Include="Views\College\TeacherDetails.cshtml" />
     <Content Include="Views\College\AddTeacher.cshtml" />
     <Content Include="Views\College\SeeStudent.cshtml" />
+    <Content Include="Views\College\EditTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

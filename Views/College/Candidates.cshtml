@@ -5,31 +5,40 @@
 
 <h2>@ViewBag.Title</h2>
 
-@foreach (var student in ViewBag.Students)
-{
-    <div class="panel-body">
-        @Html.Label("Name", "Name")
-        <br />
-        <p>@student.Name</p>
-        <br />
-        @Html.Label("Frequency", "Frequency")
-        <br />
-        <p>@student.Frequency</p>
-        <br />
-        @Html.Label("Sat", "SAT grade")
-        <br />
-        <p>@student.Sat</p>
-        @if (User.IsInRole("Admin"))
+<br />
+<br />
+<br />
+<br />
+<table class="table table-hover table-responsive table-bordered" style="width: 70%">
+    <thead>
+        <tr>
+            <th scope="col" class="col-md-1">#</th>
+            <th scope="col" class="col-md-1">Name</th>
+            <th scope="col" class="col-md-1">Frequency</th>
+            <th scope="col" class="col-md-1">SAT</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th scope="col" class="col-md-1">Email</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in ViewBag.Students)
         {
-            <br />
-            @Html.Label("Email", "Email")
-            <br />
-            <p>@student.Email</p>
-            <br />
-            @Html.Label("Badge", "Badge number")
-            <br />
-            <p>@student.Badge</p>
+            <tr>
+                <th scope="row">@student.Badge</th>
+                <td>@student.Name</td>
+                <td>@student.Frequency</td>
+                <td>@student.Sat</td>
+                @if (User.IsInRole("Admin"))
+            {
+                <td>@student.Email</td>
+            }
+            </tr>
         }
-    </div>
-}
+    </tbody>
+</table>
+<br />
+
+<hr />
 @Html.ActionLink("Back to the details of faculty", "Details", new { id = ViewBag.Faculty.FacultyId })

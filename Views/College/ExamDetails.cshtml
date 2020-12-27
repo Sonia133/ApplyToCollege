@@ -19,16 +19,27 @@
     <p>@Model.Type</p>
     <br />
 
-    <div class="panel-body">
-        @if (User.IsInRole("Admin"))
-        {
-            using (Html.BeginForm(actionName: "EditExam", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.ExamId }))
+    @if (User.IsInRole("Admin"))
+    {
+        <div style="display: flex; column-gap: 5px">
+            @using (Html.BeginForm(actionName: "EditExam", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.ExamId }))
             {
-                <button class="btn btn-primary">Edit details</button>
+                <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <span style="margin-top: 1px" class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </button>
             }
             <br />
-        }
-        @Html.ActionLink("Back to the list of exams", "Exams", new { id = Model.Faculty.FacultyId })
-    </div>
+            @using (Html.BeginForm(actionName: "DeleteExam", controllerName: "College", method: FormMethod.Get, routeValues: new { id = Model.ExamId }))
+            {
+                <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Delete">
+                    <span style="margin-top: 1px" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            }
+            <br />
+        </div>
+    }
 </div>
+
+<hr />
+@Html.ActionLink("Back to the list of exams", "Exams", new { id = Model.Faculty.FacultyId })
 

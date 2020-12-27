@@ -4,6 +4,8 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<br />
+<br />
 
 @using (Html.BeginForm("AddTeacher", "College", new { id = Model.Faculty.FacultyId }, FormMethod.Post))
 {
@@ -25,5 +27,5 @@
     @Html.ValidationMessageFor(b => b.Email, "", new { @class = "text-danger" })
     <br />
     <br />
-    <button class="btn btn-success" type="submit">Add</button>
+    <button class="btn btn-primary" type="submit">Add</button>
 }   

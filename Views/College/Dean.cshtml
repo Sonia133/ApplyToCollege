@@ -19,10 +19,13 @@
     {
         using (Html.BeginForm(actionName: "EditDean", controllerName: "College", method: FormMethod.Get, routeValues: new { id = ViewBag.Dean.DeanId }))
         {
-            <button class="btn btn-primary">Edit dean</button>
+            <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit">
+                <span style="margin-top: 1px" class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </button>
         }
         <br />
     }
 </div>
 
+<hr />
 @Html.ActionLink("Back to the details of faculty", "Details", new { id = ViewBag.Dean.Faculty.FacultyId })

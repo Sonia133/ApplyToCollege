@@ -3,62 +3,73 @@
     ViewBag.Title = "Edit your profile";
 }
 
-<h2>@ViewBag.Title</h2>
+<div style="display: flex; flex-direction: column; align-items: center">
+    <h2>@ViewBag.Title</h2>
+    <br />
+    <br />
 
-@using (Html.BeginForm(actionName: "EditStudent", controllerName: "College", method: FormMethod.Post))
-{
-<div class="form-horizontal">
+    <div class="panel panel-info" style="background-color: #d9edf7; width: 50%">
+        <h3 class="panel-heading text-center">@Model.Name</h3>
+        @using (Html.BeginForm(actionName: "EditStudent", controllerName: "College", method: FormMethod.Post))
+        {
+            <div class="form-horizontal panel-body">
 
-    @Html.HiddenFor(x => x.StudentId)
+                @Html.HiddenFor(x => x.StudentId)
 
-        <div class="form-group">
-            @Html.LabelFor(x => x.Name, new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                <div class="form-group" style="margin-left: 10%">
+                    @Html.LabelFor(x => x.Name, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Name", @class = "formcontrol" })
+                        @Html.ValidationMessageFor(b => b.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 10%">
+                    @Html.LabelFor(x => x.Cnp, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(b => b.Cnp, null, new { placeholder = "CNP", @class = "formcontrol" })
+                        @Html.ValidationMessageFor(b => b.Cnp, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 15%">
+                    @Html.LabelFor(x => x.Frequency, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        <div class="radio">
+                            @Html.RadioButtonFor(b => b.Frequency, "ID")
+                            ID
+                        </div>
+                        <div class="radio">
+                            @Html.RadioButtonFor(b => b.Frequency, "IF")
+                            IF
+                        </div>
+                        @Html.ValidationMessageFor(b => b.Frequency, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 10%">
+                    @Html.LabelFor(x => x.Badge, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(b => b.Badge, null, new { placeholder = "Badge", @class = "formcontrol" })
+                        @Html.ValidationMessageFor(b => b.Badge, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 10%">
+                    @Html.LabelFor(x => x.Sat, new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(b => b.Sat, null, new { placeholder = "SAT", @class = "formcontrol" })
+                        @Html.ValidationMessageFor(b => b.Sat, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group text-center" style="margin-right: 10%">
+                    <div class="col-md-10 col-md-offset-2">
+                        <input type="submit" value="Edit" class="btn btn-primary" />
+                    </div>
+                </div>
+
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(x => x.Cnp, new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.TextBoxFor(x => x.Cnp, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.Cnp, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(x => x.Frequency, new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                IF
-                @Html.RadioButtonFor(b => b.Frequency, "IF")
-                ID
-                @Html.RadioButtonFor(b => b.Frequency, "ID")
-            </div>
-            @Html.ValidationMessageFor(b => b.Frequency, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(x => x.Badge, new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.TextBoxFor(x => x.Badge, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.Badge, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(x => x.Sat, new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.TextBoxFor(x => x.Sat, new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.Sat, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10 col-md-offset-2">
-                <input type="submit" value="Edit" class="btn btn-primary" />
-            </div>
-        </div>
-
+        }
     </div>
-}
+</div>
