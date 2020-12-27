@@ -13,10 +13,14 @@ namespace College.Models
         [Key]
         [Column("faculty_id")]
         public int FacultyId { get; set; }
+        [UniqueName]
         public string Name { get; set; }
+        [Required]
         public string City { get; set; }
-        [MultipleOf10(ErrorMessage ="The number of places should be multiple of 10.")]
+        [Required, MultipleOf10]
         public int Places { get; set; }
+        [Required,
+         MaxLength(200, ErrorMessage = "Please write a shorter description.")]
         public string Description { get; set; }
 
 
@@ -27,7 +31,7 @@ namespace College.Models
         public virtual ICollection<Teacher> Teachers { get; set; }
         // many to one
         public virtual ICollection<Exam> Exam { get; set; }
-        // many to one
+        // many to many
         public virtual ICollection<Student> Students { get; set; }
 
     }

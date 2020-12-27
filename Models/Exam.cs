@@ -12,10 +12,12 @@ namespace College.Models
         [Key]
         [Column("exam_id")]
         public int ExamId { get; set; }
-        [Required]
+        [Required,
+         MaxLength(20, ErrorMessage = "Subject name too long.")]
         public string Subject { get; set; }
         [Required]
         public DateTime Date { get; set; }
+        [Required]
         public string Type { get; set; }
 
 

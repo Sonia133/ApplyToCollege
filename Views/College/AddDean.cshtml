@@ -12,17 +12,17 @@
 </div>
 <br />
 <br />
-@using (Html.BeginForm(actionName: "AddStep_2", controllerName: "College", method: FormMethod.Post))
+@using (Html.BeginForm(actionName: "AddDean", controllerName: "College", method: FormMethod.Post))
 {
     @Html.Label("Name", "Name: ")
     <br />
-    @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Name", @class = "formcontrol" })
+    @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Name", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Name, "", new { @class = "text-danger" })
     <br />
     <br />
     @Html.Label("Email", "Email: ")
     <br />
-    @Html.TextBoxFor(b => b.Email, null, new { placeholder = "Email", @class = "formcontrol" })
+    @Html.TextBoxFor(b => b.Email, null, new { placeholder = "Email", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Email, "", new { @class = "text-danger" })
     <br />
     <br />

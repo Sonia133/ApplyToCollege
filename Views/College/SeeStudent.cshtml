@@ -10,6 +10,15 @@
     <br />
     <p>@Model.Name</p>
     <br />
+    @Html.Label("Faculties", "Faculties:")
+    <br />
+    <ul>
+        @foreach (var faculty in Model.Faculties)
+        {
+            <li>@faculty.Name</li>
+        }
+    </ul>
+    <br />
     @Html.Label("Frequency", "Frequency")
     <br />
     <p>@Model.Frequency</p>
@@ -25,6 +34,11 @@
     @Html.Label("Badge", "Badge number")
     <br />
     <p>@Model.Badge</p>
+    <br />
+    @Html.Label("Cnp", "CNP")
+    <br />
+    <p>@Model.Cnp</p>
 </div>
 
+<hr />
 @Html.ActionLink("Back to your profile", "Index", "Manage")

@@ -108,3 +108,7 @@ C:\Users\sorin\OneDrive\Desktop\Anul 3\Semestrul 1\Dezvoltarea Aplicatiilor Web\
 C:\Users\sorin\OneDrive\Desktop\Anul 3\Semestrul 1\Dezvoltarea Aplicatiilor Web\College\College\College\obj\Debug\College.pdb
 C:\Users\sorin\OneDrive\Desktop\Anul 3\Semestrul 1\Dezvoltarea Aplicatiilor Web\College\College\College\obj\Debug\College.Migrations.MigrationHistory.resources
 C:\Users\sorin\OneDrive\Desktop\Anul 3\Semestrul 1\Dezvoltarea Aplicatiilor Web\College\College\College\obj\Debug\College.csproj.GenerateResource.cache
+C:\Users\sorin\OneDrive\Desktop\Anul 3\Semestrul 1\Dezvoltarea Aplicatiilor Web\College\College\College\obj\Debug\College.Migrations.AddValidation.resources
+C:\Users\sorin\OneDrive\Desktop\Anul 3\Semestrul 1\Dezvoltarea Aplicatiilor Web\College\College\College\obj\Debug\College.Migrations.FixModels.resources
+C:\Users\sorin\OneDrive\Desktop\Anul 3\Semestrul 1\Dezvoltarea Aplicatiilor Web\College\College\College\obj\Debug\College.Migrations.AddManyToMany.resources
+C:\Users\sorin\OneDrive\Desktop\Anul 3\Semestrul 1\Dezvoltarea Aplicatiilor Web\College\College\College\obj\Debug\College.Migrations.FixManyToMany.resources

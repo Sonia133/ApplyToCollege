@@ -7,24 +7,28 @@
 <br />
 <br />
 
-@using (Html.BeginForm(actionName: "Apply", controllerName: "College", method: FormMethod.Post))
+@using (Html.BeginForm(actionName: "AddStudent", controllerName: "College", method: FormMethod.Post))
 {
-    @Html.Label("Faculty.FacultyId", "Select one faculty: ")
+    @Html.LabelFor(b => b.FacultiesList, "Choose faculties:")
     <br />
-    @Html.DropDownListFor(b => b.Faculty.FacultyId,
-        new SelectList(Model.FacultiesList, "Value", "Text"), new { placeholder = "Faculty", @class = "formcontrol", @style = "padding: 10px" })
-    @Html.ValidationMessageFor(b => b.Faculty.FacultyId, "", new { @class = "text-danger" })
-    <br />
+    for (int i = 0; i < Model.FacultiesList.Count(); i++)
+    {
+        @Html.HiddenFor(b => b.FacultiesList[i].Id)
+        @Html.HiddenFor(b => b.FacultiesList[i].Name)
+        @Html.CheckBoxFor(b => b.FacultiesList[i].Checked)
+        @Html.DisplayFor(b => b.FacultiesList[i].Name)
+        <br />
+    }
     <br />
     @Html.Label("Name", "Name: ")
     <br />
-    @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Name", @class = "formcontrol" })
+    @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Name", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Name, "", new { @class = "text-danger" })
     <br />
     <br />
     @Html.Label("Cnp", "CNP: ")
     <br />
-    @Html.TextBoxFor(b => b.Cnp, null, new { placeholder = "Cnp", @class = "formcontrol" })
+    @Html.TextBoxFor(b => b.Cnp, null, new { placeholder = "Cnp", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Cnp, "", new { @class = "text-danger" })
     <br />
     <br />
@@ -47,13 +51,13 @@
     <br />
     @Html.Label("Sat", "SAT grade: ")
     <br />
-    @Html.TextBoxFor(b => b.Sat, null, new { placeholder = "SAT grade", @class = "formcontrol" })
+    @Html.TextBoxFor(b => b.Sat, null, new { placeholder = "SAT grade", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Sat, "", new { @class = "text-danger" })
     <br />
     <br />
     @Html.Label("Badge", "Badge number: ")
     <br />
-    @Html.TextBoxFor(b => b.Badge, null, new { placeholder = "Badge number", @class = "formcontrol" })
+    @Html.TextBoxFor(b => b.Badge, null, new { placeholder = "Badge number", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Badge, "", new { @class = "text-danger" })
     <br />
     <br />

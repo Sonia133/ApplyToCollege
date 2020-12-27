@@ -12,8 +12,12 @@ namespace College.Models
         [Key]
         [Column("teacher_id")]
         public int TeacherId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required,
+         MaxLength(20, ErrorMessage = "Subject name too long.")]
         public string Subject { get; set; }
+        [EmailAddress]
         public string Email { get; set; }
 
 

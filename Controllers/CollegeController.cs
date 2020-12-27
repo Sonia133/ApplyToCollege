@@ -19,37 +19,20 @@ namespace College.Controllers
             return RedirectToAction("Faculties", "College");
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public ActionResult AddFaculty()
-        {
-            Faculty faculty = new Faculty
-            {
-                Students = new List<Student>()
-            };
-            return View(faculty);
-        }
-
         [NonAction]
-        private IEnumerable<SelectListItem> GetAllFaculties()
+        private List<Checkbox> GetAllFaculties()
         {
-            var selectList = new List<SelectListItem>();
+            var checkBoxList = new List<Checkbox>();
             foreach (var faculty in db.Faculties.ToList())
             {
-                selectList.Add(new SelectListItem
+                checkBoxList.Add(new Checkbox
                 {
-                    Value = faculty.FacultyId.ToString(),
-                    Text = faculty.Name
+                    Id = faculty.FacultyId,
+                    Name = faculty.Name,
+                    Checked = false
                 });
             }
-            return selectList;
-        }
-
-        [NonAction]
-        private bool AlreadyApplied(ApplicationUser user)
-        {
-            Student student = db.Students.FirstOrDefault(predicate => predicate.Email.Equals(user.UserName));
-            return student != null;
+            return checkBoxList;
         }
 
         [AllowAnonymous]
@@ -144,6 +127,18 @@ namespace College.Controllers
 
             if (faculty != null)
             {
+                List<Teacher> teachers = db.Teachers.Where(t => t.Faculty.FacultyId == faculty.FacultyId).ToList();
+                teachers.ForEach((teacher) =>
+                {
+                    db.Teachers.Remove(teacher);
+                });
+
+                List<Exam> exams = db.Exams.Where(e => e.Faculty.FacultyId == faculty.FacultyId).ToList();
+                exams.ForEach((exam) =>
+                {
+                    db.Exams.Remove(exam);
+                });
+
                 faculty.Dean = null;
                 dean.Faculty = null;
 
@@ -648,6 +643,17 @@ namespace College.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
+        public ActionResult AddFaculty()
+        {
+            Faculty faculty = new Faculty
+            {
+                Students = new List<Student>()
+            };
+            return View(faculty);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult AddDean()
         {
             Dean dean = new Dean { };
@@ -656,7 +662,7 @@ namespace College.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult AddStep_1(Faculty faculty)
+        public ActionResult AddFaculty(Faculty faculty)
         {
             try
             {
@@ -666,7 +672,15 @@ namespace College.Controllers
                     db.SaveChanges();
                     return RedirectToAction("AddDean");
                 }
-                return View(faculty);
+                else
+                {
+                    var errors = ModelState.Select(x => x.Value.Errors)
+                               .Where(y => y.Count > 0)
+                               .ToList();
+
+                    ViewBag.Message = errors;
+                    return View(faculty);
+                }
             }
             catch (Exception e)
             {
@@ -676,7 +690,7 @@ namespace College.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult AddStep_2(Dean dean)
+        public ActionResult AddDean(Dean dean)
         {
             try
             {
@@ -699,40 +713,56 @@ namespace College.Controllers
         [HttpGet]
         public ActionResult AddStudent()
         {
-            if(User.IsInRole("User"))
-            {
-                Console.WriteLine('h');
-            }
             Student student = new Student { };
             student.FacultiesList = GetAllFaculties();
+            student.Faculties = new List<Faculty>();
+
             return View(student);
         }
 
         [Authorize(Roles = "User")]
         [HttpPost]
-        public ActionResult Apply(Student student)
+        public ActionResult AddStudent(Student student)
         {
             try
             {
+                var selectedFaculties = student.FacultiesList.Where(f => f.Checked).ToList();
+
                 if (ModelState.IsValid)
                 {
                     var userId = User.Identity.GetUserId();
                     ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == userId);
 
-                    int id = student.Faculty.FacultyId;
-                    Faculty faculty = db.Faculties.FirstOrDefault(predicate => predicate.FacultyId.Equals(id));
-                    faculty.Students.Add(new Student
+                    student.Faculties = new List<Faculty>();
+
+                    for (int i = 0; i < selectedFaculties.Count(); i++)
+                    {
+                        Faculty faculty = db.Faculties.Find(selectedFaculties[i].Id);
+
+                        student.Faculties.Add(faculty);
+                    }
+
+                    db.Students.Add(new Student
                     {
                         Name = student.Name,
                         Cnp = student.Cnp,
                         Frequency = student.Frequency,
                         Email = currentUser.UserName,
                         Sat = student.Sat,
-                        Badge = student.Badge
+                        Badge = student.Badge,
+                        Faculties = student.Faculties
                     });
+
                     db.SaveChanges();
 
                     return RedirectToAction("Faculties");
+                }
+                else
+                {
+                    var errors = ModelState.Select(x => x.Value.Errors)
+                               .Where(y => y.Count > 0)
+                               .ToList();
+                    Console.WriteLine(errors);
                 }
                 return View(student);
             }
