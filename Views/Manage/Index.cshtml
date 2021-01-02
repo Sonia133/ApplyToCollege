@@ -25,11 +25,11 @@
             {
                 <dt>Profile:</dt>
                 <dd>
-                    @Html.ActionLink("See your profile", "SeeStudent", "College", new { id = ViewBag.StudentId }, FormMethod.Get)
+                    @Html.ActionLink("See your profile", "Details", "Student", new { id = ViewBag.StudentId }, FormMethod.Get)
                     <br />
-                    @Html.ActionLink("Edit your application", "EditStudent", "College", new { id = ViewBag.StudentId }, FormMethod.Get)
+                    @Html.ActionLink("Edit your application", "Edit", "Student", new { id = ViewBag.StudentId }, FormMethod.Get)
                     <br />
-                    @Html.ActionLink("Delete your application", "DeleteStudent", "College", new { id = ViewBag.StudentId }, FormMethod.Get)
+                    @Html.ActionLink("Delete your application", "Delete", "Student", new { id = ViewBag.StudentId }, FormMethod.Get)
                 </dd>
             }
         </dl>

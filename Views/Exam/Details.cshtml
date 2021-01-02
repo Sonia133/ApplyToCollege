@@ -1,0 +1,45 @@
+﻿@model College.Models.Exam
+@{
+    ViewBag.Title = "Exam Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@Model.Subject</h3>
+
+<div class="panel-body">
+
+    @Html.Label("Date", "Date")
+    <br />
+    <p>@Model.Date</p>
+    <br />
+
+    @Html.Label("Type", "Type")
+    <br />
+    <p>@Model.Type</p>
+    <br />
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div style="display: flex; column-gap: 5px">
+            @using (Html.BeginForm(actionName: "Edit", controllerName: "Exam", method: FormMethod.Get, routeValues: new { id = Model.ExamId }))
+            {
+                <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <span style="margin-top: 1px" class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </button>
+            }
+            <br />
+            @using (Html.BeginForm(actionName: "Delete", controllerName: "Exam", method: FormMethod.Get, routeValues: new { id = Model.ExamId }))
+            {
+                <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Delete">
+                    <span style="margin-top: 1px" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            }
+            <br />
+        </div>
+    }
+</div>
+
+<hr />
+@Html.ActionLink("Back to the list of exams", "Index", "Exam", new { id = Model.Faculty.FacultyId }, null)
+
