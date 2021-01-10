@@ -12,7 +12,11 @@ namespace College.CustomValidations
         private bool BeUnique(string name, int id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            return db.Faculties.FirstOrDefault(fac => fac.Name == name && !(fac.FacultyId == id)) == null;
+            if (id > -1)
+            {
+                return db.Faculties.FirstOrDefault(fac => fac.Name == name && !(fac.FacultyId == id)) == null;
+            }
+            return db.Faculties.FirstOrDefault(fac => fac.Name == name) == null;
         }
 
         private ValidationResult validateName(string name, int id)
@@ -29,11 +33,24 @@ namespace College.CustomValidations
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var faculty = (Faculty)validationContext.ObjectInstance;
-            string name = faculty.Name;
-            int id = faculty.FacultyId;
+            string name = "";
+            int id = -1;
 
-            return validateName(name, id);
+            if (validationContext.ObjectType.Name == "FacultyDean")
+            {
+                var facultyDean = (FacultyDean)validationContext.ObjectInstance;
+                name = facultyDean.Name;
+
+                return validateName(name, id);
+            }
+            else
+            {
+                var faculty = (Faculty)validationContext.ObjectInstance;
+                name = faculty.Name;
+                id = faculty.FacultyId;
+
+                return validateName(name, id);
+            }
         }
     }
 }

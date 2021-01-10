@@ -11,8 +11,19 @@ namespace College.CustomValidations
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var faculty = (Faculty)validationContext.ObjectInstance;
-            int places = faculty.Places;
+            int places = -1;
+
+            if (validationContext.ObjectType.Name == "FacultyDean")
+            {
+                var faculty = (FacultyDean)validationContext.ObjectInstance;
+                places = faculty.Places;
+            }
+            else
+            {
+                 var faculty = (Faculty)validationContext.ObjectInstance;
+                 places = faculty.Places;
+            }
+
             bool cond = true;
 
             if (places % 10 != 0)

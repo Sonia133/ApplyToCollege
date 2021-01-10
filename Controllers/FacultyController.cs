@@ -61,24 +61,37 @@ namespace College.Controllers
         [HttpGet]
         public ActionResult New()
         {
-            Faculty faculty = new Faculty
-            {
-                Students = new List<Student>()
-            };
+            FacultyDean faculty = new FacultyDean { };
             return View(faculty);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult New(Faculty faculty)
+        public ActionResult New(FacultyDean faculty)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Faculties.Add(faculty);
+                    Dean dean = new Dean
+                    {
+                        Name = faculty.DeanName,
+                        Email = faculty.Email
+                    };
+
+                    db.Deans.Add(dean);
+
+                    db.Faculties.Add(new Faculty
+                    {
+                        Name = faculty.Name,
+                        City = faculty.City,
+                        Places = faculty.Places,
+                        Description = faculty.Description,
+                        Dean = dean
+                    });
+
                     db.SaveChanges();
-                    return RedirectToAction("New", "Faculty");
+                    return RedirectToAction("Index", "Faculty");
                 }
                 else
                 {

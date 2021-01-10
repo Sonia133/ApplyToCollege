@@ -183,25 +183,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012071500138_MigrationHistory.cs" />
-    <Compile Include="Migrations\202012071500138_MigrationHistory.Designer.cs">
-      <DependentUpon>202012071500138_MigrationHistory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012271501218_AddValidation.cs" />
-    <Compile Include="Migrations\202012271501218_AddValidation.Designer.cs">
-      <DependentUpon>202012271501218_AddValidation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012271504186_FixModels.cs" />
-    <Compile Include="Migrations\202012271504186_FixModels.Designer.cs">
-      <DependentUpon>202012271504186_FixModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012272143492_AddManyToMany.cs" />
-    <Compile Include="Migrations\202012272143492_AddManyToMany.Designer.cs">
-      <DependentUpon>202012272143492_AddManyToMany.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012272215552_FixManyToMany.cs" />
-    <Compile Include="Migrations\202012272215552_FixManyToMany.Designer.cs">
-      <DependentUpon>202012272215552_FixManyToMany.cs</DependentUpon>
+    <Compile Include="Migrations\202101101704106_Initial.cs" />
+    <Compile Include="Migrations\202101101704106_Initial.Designer.cs">
+      <DependentUpon>202101101704106_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -209,6 +193,7 @@
     <Compile Include="Models\Dean.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\Faculty.cs" />
+    <Compile Include="Models\FacultyDean.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Teacher.cs" />
@@ -278,7 +263,6 @@
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
     <Content Include="Views\Dean\Index.cshtml" />
-    <Content Include="Views\Dean\New.cshtml" />
     <Content Include="Views\Dean\Edit.cshtml" />
     <Content Include="Views\Exam\Index.cshtml" />
     <Content Include="Views\Exam\Details.cshtml" />
@@ -310,20 +294,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012071500138_MigrationHistory.resx">
-      <DependentUpon>202012071500138_MigrationHistory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012271501218_AddValidation.resx">
-      <DependentUpon>202012271501218_AddValidation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012271504186_FixModels.resx">
-      <DependentUpon>202012271504186_FixModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012272143492_AddManyToMany.resx">
-      <DependentUpon>202012272143492_AddManyToMany.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012272215552_FixManyToMany.resx">
-      <DependentUpon>202012272215552_FixManyToMany.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101101704106_Initial.resx">
+      <DependentUpon>202101101704106_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

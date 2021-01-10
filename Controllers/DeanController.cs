@@ -24,35 +24,6 @@ namespace College.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public ActionResult New()
-        {
-            Dean dean = new Dean { };
-            return View(dean);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult New(Dean dean)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.Faculties.OrderByDescending(f => f.FacultyId).FirstOrDefault().Dean = dean;
-                    db.SaveChanges();
-
-                    return RedirectToAction("Index", "Faculty");
-                }
-                return View(dean);
-            }
-            catch (Exception e)
-            {
-                return View(dean);
-            }
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id.HasValue)

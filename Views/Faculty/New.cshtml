@@ -1,4 +1,4 @@
-﻿@model College.Models.Faculty
+﻿@model College.Models.FacultyDean
 @{
     ViewBag.Title = "Add details";
 }
@@ -7,13 +7,10 @@
 
 <br />
 <br />
-<p>Step 1</p>
-<div class="progress" style="width: 40%">
-    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
-</div>
-<br />
 @using (Html.BeginForm(actionName: "New", controllerName: "Faculty", method: FormMethod.Post))
 {
+    <p>Faculty details: </p>
+    <br />
     @Html.Label("Name", "Name: ")
     <br />
     @Html.TextBoxFor(b => b.Name, null, new { placeholder = "Enter the name of the faculty", @class = "form-control" })
@@ -34,6 +31,18 @@
     @Html.TextBoxFor(b => b.Places, null, new { placeholder = "Enter the number of the places", @class = "form-control", @type = "number" })
     @Html.ValidationMessageFor(b => b.Places, "", new { @class = "text-danger" })
     <br />
+    <p>Dean details: </p>
     <br />
-    <button class="btn btn-primary" type="submit">Next</button>
+    @Html.Label("DeanName", "Name: ")
+    <br />
+    @Html.TextBoxFor(b => b.DeanName, null, new { placeholder = "Enter the name of the dean", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.DeanName, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Email", "Email: ")
+    <br />
+    @Html.TextBoxFor(b => b.Email, null, new { placeholder = "Enter the email", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.Email, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-primary" type="submit">Add</button>
 }
