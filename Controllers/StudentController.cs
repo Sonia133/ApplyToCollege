@@ -15,12 +15,26 @@ namespace College.Controllers
         // GET: Student
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, string option)
         {
+            List<Student> students = new List<Student>();
+
             Faculty faculty = db.Faculties.Find(id);
             ViewBag.Faculty = faculty;
 
-            List<Student> students = faculty.Students.ToList();
+            if (option == "Name")
+            {
+                students = faculty.Students.OrderBy(st => st.Name).ToList();
+            }
+            else if (option == "Sat")
+            {
+                students = faculty.Students.OrderByDescending(st => st.Sat).ToList();
+            }
+            else
+            {
+                students = faculty.Students.ToList();
+            }
+
             ViewBag.Students = students;
 
             return View();

@@ -9,6 +9,20 @@
 <br />
 <br />
 <br />
+@using (Html.BeginForm("Index", "Student", FormMethod.Get))
+{
+    <b> Order by: </b>
+    <div class="panel-body">
+        @Html.RadioButton("option", "Name") <text>Name</text>
+        <br />
+        @Html.RadioButton("option", "Sat") <text> SAT grade </text>
+    </div>
+    <br />
+    <input type = "submit" name = "submit" value = "Order" class="btn btn-primary" />
+}
+<br />
+<br />
+<br />
 <table class="table table-hover table-responsive table-bordered" style="width: 70%">
     <thead>
         <tr>

@@ -9,6 +9,18 @@
 <br />
 <br />
 <br />
+@using (Html.BeginForm("Index", "Faculty", FormMethod.Get))
+{
+    <b> Search by city: </b>
+    <br />
+    @Html.TextBox("city")
+    <br />
+    <br />
+    <input type="submit" name="submit" value="Search" class="btn btn-primary" />
+}
+<br />
+<br />
+<br />
 <table class="table table-hover table-responsive table-bordered" style="width: 70%">
     <thead>
         <tr>

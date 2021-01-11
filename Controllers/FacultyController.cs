@@ -15,9 +15,15 @@ namespace College.Controllers
         // GET: Admitere
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string city)
         {
-            List<Faculty> faculties = db.Faculties.ToList();
+            List<Faculty> faculties = new List<Faculty>();
+
+            if (city != null)
+            {
+                faculties = db.Faculties.Where(fac => fac.City == city).ToList();
+            }
+            else faculties = db.Faculties.ToList();
 
             if (User.Identity.IsAuthenticated)
             {
